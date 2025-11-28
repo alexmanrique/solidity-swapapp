@@ -104,7 +104,7 @@ contract SwapAppTest is Test {
 
     function testGetUserSwapAtIndexRevertsOnInvalidIndex() public {
         vm.startPrank(user);
-        
+
         // Intentar obtener un swap cuando no hay ninguno
         vm.expectRevert("SwapApp: index out of bounds");
         app.getUserSwapAtIndex(user, 0);
@@ -151,7 +151,7 @@ contract SwapAppTest is Test {
     function testSwapHistoryIsUserSpecific() public {
         address user2 = address(0x1234);
         vm.deal(user2, 1 ether);
-        
+
         vm.startPrank(user);
         uint256 amountIn = 5 * 1e6;
         uint256 amountOutMin = 4 * 1e18;

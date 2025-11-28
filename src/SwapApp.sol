@@ -8,7 +8,7 @@ import {SafeERC20} from "../lib/openzeppelin-contracts/contracts/token/ERC20/uti
 contract SwapApp {
     using SafeERC20 for IERC20;
     address public V2Router02Address;
-    
+
     struct SwapInfo {
         address tokenIn;
         address tokenOut;
@@ -33,7 +33,7 @@ contract SwapApp {
         IERC20(path[0]).approve(V2Router02Address, amountIn);
         uint256[] memory amountOuts =
             IV2Router02(V2Router02Address).swapExactTokensForTokens(amountIn, amountOutMin, path, msg.sender, deadline);
-        
+
         SwapInfo memory swapInfo = SwapInfo({
             tokenIn: path[0],
             tokenOut: path[path.length - 1],
@@ -43,10 +43,10 @@ contract SwapApp {
             timestamp: block.timestamp,
             deadline: deadline
         });
-        
+
         swapHistory[msg.sender].push(swapInfo);
         swapCount[msg.sender]++;
-        
+
         emit SwapTokens(msg.sender, path[0], path[path.length - 1], amountIn, amountOuts[amountOuts.length - 1]);
     }
 
